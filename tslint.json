@@ -17,7 +17,7 @@
         "eofline": false,
         "forin": true,
         "indent": [ true, "spaces" ],
-        "interface-name": [true, "never-prefix"],
+        "interface-name": [true, "always-prefix"],
         "jsdoc-format": true,
         "jsx-no-lambda": false,
         "jsx-no-multiline-js": false,
@@ -63,7 +63,7 @@
         ],
         "quotemark": [true, "single", "jsx-double"],
         "radix": true,
-        "semicolon": [true, "always"],
+        "semicolon": [true, "never"],
         "switch-default": true,
 
         "trailing-comma": [false],
