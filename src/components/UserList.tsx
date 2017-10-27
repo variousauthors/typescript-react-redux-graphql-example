@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ListItem from '../containers/ListItem'
+import ListItem from '../containers/UserListItem'
 import { InputShortText } from './Input/InputShortText'
 import { InputFormGroup } from './Input/InputFormGroup'
 import { InputForm } from './Input/InputForm'

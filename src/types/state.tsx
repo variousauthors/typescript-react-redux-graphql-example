@@ -1,11 +1,11 @@
 import { LocaleType } from './index'
 
-export interface IStateListSearch {
+export interface IUserListSearchState {
   userName: string
   count: number
 }
 
-export interface IStateLocale {
+export interface ILocaleState {
   code: LocaleType
 }
 
@@ -18,7 +18,7 @@ export interface IUserStates {
 }
 
 export interface IState {
-  listSearch: IStateListSearch
-  locale: IStateLocale
+  userListSearch: IUserListSearchState
+  locale: ILocaleState
   users: IUserStates
 }

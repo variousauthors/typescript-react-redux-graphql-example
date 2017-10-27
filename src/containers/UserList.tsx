@@ -3,7 +3,7 @@ import { connect, Dispatch } from 'react-redux'
 
 import ActionCreator from '../actions/index'
 import { IState } from '../types/index'
-import { List as Base, IListProps as IBaseProps } from '../components/List'
+import { List as Base, IListProps as IBaseProps } from '../components/UserList'
 import { mem } from '../helpers/PurityHelpers'
 
 const QUERY = gql`
@@ -78,8 +78,8 @@ export const mapGraphQLToProps = (props: OptionProps<IPropsFromParent & IPropsFr
 export const mapStateToProps = (state: IState, props: IPropsFromParent): IPropsFromParent & IPropsFromState => {
 
   return {
-    userName: state.listSearch.userName,
-    count: state.listSearch.count
+    userName: state.userListSearch.userName,
+    count: state.userListSearch.count
   }
 }
 
