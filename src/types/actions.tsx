@@ -1,6 +1,18 @@
-import { IAction, ActionType } from './index'
+export const enum ActionType {
+  UPDATE_LIST_SEARCH = 'UPDATE_LIST_SEARCH',
+  BOB = 'BOB',
+}
 
-export interface IShowMoreInfo extends IAction {
-  type: ActionType.SHOW_MORE_INFO
-  data: { offeringId: number }
+export interface IAction {
+  type: ActionType
+  // tslint:disable-next-line:no-any
+  data: any
+}
+
+export interface IUpdateListSearch extends IAction {
+  type: ActionType.UPDATE_LIST_SEARCH
+  data: { 
+    userName?: string
+    count?: number
+  }
 }

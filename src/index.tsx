@@ -1,10 +1,11 @@
 import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apollo'
-import { applyMiddleware, compose, combineReducers, createStore } from 'redux'
+import { applyMiddleware, compose, createStore } from 'redux'
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import App from './components/App'
 import { MiddlewareRequest } from 'apollo-client/transport/middleware'
+import reducers from './reducers'
 
 const networkInterface = createNetworkInterface({
   uri: 'https://api.github.com/graphql',
@@ -29,8 +30,9 @@ const client = new ApolloClient({
 })
 
 const store = createStore(
-  combineReducers({
-    apollo: client.reducer(),
+  reducers({
+    apollo: client.reducer()
+    // router: routerReducer,
   }),
   {}, // initial state
   compose(

@@ -1,3 +1,8 @@
+export interface IStateListSearch {
+  userName: string
+  count: number
+}
+
 export interface IState {
-  name: string
+  listSearch: IStateListSearch
 }

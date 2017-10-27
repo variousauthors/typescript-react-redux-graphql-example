@@ -1,14 +1,20 @@
-import { IShowMoreInfo, ActionType } from '../types/index'
+import { ActionType, IUpdateListSearch } from '../types/index'
 
-const showMoreInfo = (offeringId: number): IShowMoreInfo => {
+interface IUpdateListSearchParams {
+  userName: string
+  count: number
+}
+
+const updateListSearch = ({ userName, count }: IUpdateListSearchParams): IUpdateListSearch => {
   return {
-    type: ActionType.SHOW_MORE_INFO,
+    type: ActionType.UPDATE_LIST_SEARCH,
     data: {
-      offeringId,
+      userName,
+      count
     }
   }
 }
 
 export default {
-  showMoreInfo
+  updateListSearch
 }

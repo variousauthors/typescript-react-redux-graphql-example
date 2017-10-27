@@ -75,15 +75,15 @@ export const mapGraphQLToProps = (props: OptionProps<IPropsFromParent & IPropsFr
 export const mapStateToProps = (state: IState, props: IPropsFromParent): IPropsFromParent & IPropsFromState => {
 
   return {
-    userName: 'Bob',
-    count: 10
+    userName: state.listSearch.userName,
+    count: state.listSearch.count
   }
 }
 
 export const mapDispatchToProps = (dispatch: Dispatch<void>, props: IPropsFromParent): IPropsFromDispatch => {
   return {
-    someAction: () => {
-      dispatch(ActionCreator.showMoreInfo(1))
+    someAction: ({ userName, count }: { userName: string, count: number }) => {
+      dispatch(ActionCreator.updateListSearch({ userName, count }))
     }
   }
 }
