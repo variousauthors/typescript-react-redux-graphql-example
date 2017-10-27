@@ -6,13 +6,15 @@ import { IState } from '../types/index'
 import { List as Base, IListProps as IBaseProps } from '../components/List'
 import { mem } from '../helpers/PurityHelpers'
 
-const QUERY = gql`
-  query allUsers($name: string) {
-    allUsers(filter: { name: $name }) {
-      userId
-      name
+const QUERY = gql`{
+  search(first:10, query:"bob", type:USER) {
+    nodes {
+      ... on User {
+        name
+      }
     }
   }
+}
 `
 
 interface IVariables {
@@ -59,7 +61,7 @@ export const mapGraphQLToProps = (props: OptionProps<IPropsFromParent & IPropsFr
       error: props.data.error ? props.data.error.message : '',
     }),
     name: props.ownProps.name,
-    list: props.data.allUsers
+    list: props.data.allUsers ? props.data.allUsers : mem([])
   }
 }
 
