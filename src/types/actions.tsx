@@ -1,6 +1,8 @@
+import { LocaleType } from './index'
+
 export const enum ActionType {
   UPDATE_LIST_SEARCH = 'UPDATE_LIST_SEARCH',
-  BOB = 'BOB',
+  SET_LOCALE = 'SET_LOCALE'
 }
 
 export interface IAction {
@@ -14,5 +16,12 @@ export interface IUpdateListSearch extends IAction {
   data: { 
     userName?: string
     count?: number
+  }
+}
+
+export interface ISetLocale extends IAction {
+  type: ActionType.SET_LOCALE,
+  data: {
+    code: LocaleType
   }
 }

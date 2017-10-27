@@ -10,7 +10,10 @@ type ListSearchActionType = IUpdateListSearch
 const listSearch = (state = initialListSearch, action: ListSearchActionType): IStateListSearch => {
   switch (action.type) {
     case ActionType.UPDATE_LIST_SEARCH: {
-      return state
+      return {
+        ...state,
+        ...action.data
+      }
     }
     default: {
       return state

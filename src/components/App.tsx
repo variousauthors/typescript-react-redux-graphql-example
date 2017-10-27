@@ -4,7 +4,7 @@ import List from '../containers/List'
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
+      <div className='App'>
         <List />
       </div>
     )

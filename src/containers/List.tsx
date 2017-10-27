@@ -46,6 +46,7 @@ interface IPropsFromState { // from state
 }
 
 interface IPropsFromDispatch { // from dispatch
+  userNameChange: (userName: string) => void
 }
 
 export const mapPropsToVariables = (props: IPropsFromParent & IPropsFromState & IPropsFromDispatch): IVariables => {
@@ -61,14 +62,16 @@ export const mapPropsToVariables = (props: IPropsFromParent & IPropsFromState & 
 }
 
 export const mapGraphQLToProps = (props: OptionProps<IPropsFromParent & IPropsFromState & IPropsFromDispatch, IResponse>): IBaseProps => {
+  const data = props!.data!
 
   return {
     queryStatus: mem({
-      isLoading: props.data.loading,
-      error: props.data.error ? props.data.error.message : '',
+      isLoading: data.loading,
+      error: data.error ? data.error.message : '',
     }),
-    name: props.ownProps.userName,
-    list: props.data.search ? props.data.search.nodes : mem([])
+    userName: props.ownProps.userName,
+    list: data.search ? data.search.nodes : mem([]),
+    userNameChange: props.ownProps.userNameChange
   }
 }
 
@@ -82,8 +85,8 @@ export const mapStateToProps = (state: IState, props: IPropsFromParent): IPropsF
 
 export const mapDispatchToProps = (dispatch: Dispatch<void>, props: IPropsFromParent): IPropsFromDispatch => {
   return {
-    someAction: ({ userName, count }: { userName: string, count: number }) => {
-      dispatch(ActionCreator.updateListSearch({ userName, count }))
+    userNameChange: (userName: string) => {
+      dispatch(ActionCreator.updateListSearch({ userName }))
     }
   }
 }

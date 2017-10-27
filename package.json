@@ -6,6 +6,7 @@
     "@types/ramda": "^0.24.18",
     "@types/react-redux": "^5.0.11",
     "@types/reduce-reducers": "^0.1.3",
+    "i18n-react": "^0.6.2",
     "ramda": "^0.25.0",
     "react": "^16.0.0",
     "react-apollo": "^1.4.11",
@@ -18,7 +19,7 @@
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
+    "test": "tslint --project . && react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
