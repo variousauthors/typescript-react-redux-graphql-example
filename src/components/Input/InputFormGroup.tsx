@@ -29,13 +29,13 @@ export class InputFormGroup extends React.Component<IInputFormGroupProps, IInput
   }
 
   render () {
-    const hasError = this.props.isValid === false ? 'edvisor_error' : ''
-    const hasLostFocus = this.state.hasLostFocus ? 'edvisor_has-lost-focus' : ''
+    const hasError = this.props.isValid === false ? 'error' : ''
+    const hasLostFocus = this.state.hasLostFocus ? 'has-lost-focus' : ''
     const className = this.props.className ? this.props.className : ''
 
     return (
       <div
-        className={`edvisor_form-group ${className} ${hasError} ${hasLostFocus}`}
+        className={`form-group ${className} ${hasError} ${hasLostFocus}`}
         onBlur={(e) => this.handleBlur(e)}
       >
         {this.props.children}

@@ -1,12 +1,13 @@
 import * as React from 'react'
-import { IListItemProps, ListItem } from './ListItem'
+import ListItem from '../containers/ListItem'
 import { InputShortText } from './Input/InputShortText'
 import { InputFormGroup } from './Input/InputFormGroup'
 import { InputForm } from './Input/InputForm'
+import { IUserListItem } from '../types/index'
 
 export interface IListProps {
   userName: string
-  list: IListItemProps[]
+  list: IUserListItem[]
 
   queryStatus: {
     isLoading: boolean
@@ -29,7 +30,7 @@ export class List extends React.PureComponent<IListProps> {
 
   render () {
     const list = this.props.list.map((item, index) => {
-      return <ListItem key={index} {...item} />
+      return <ListItem key={index} item={item} />
     })
 
     return (
@@ -37,7 +38,7 @@ export class List extends React.PureComponent<IListProps> {
         <h1>Users (search: "{this.props.userName}")</h1>
         <InputForm>
           <InputFormGroup>
-            <InputShortText id='userSearch' value={this.props.userName} onChange={this.handleNameChange} />
+            <InputShortText label='Search' id='userSearch' value={this.props.userName} onChange={this.handleNameChange} />
           </InputFormGroup>
         </InputForm>
         {list}

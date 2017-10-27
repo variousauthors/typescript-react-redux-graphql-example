@@ -31,7 +31,7 @@ export class InputForm extends React.Component<IInputFormProps, IInputFormState>
   }
 
   render () {
-    const hasSubmitAttempt = this.state.hasSubmitAttempt ? 'edvisor_has-submit-attempt' : ''
+    const hasSubmitAttempt = this.state.hasSubmitAttempt ? 'has-submit-attempt' : ''
     const props = {
       ...this.props,
       className: `${this.props.className} ${hasSubmitAttempt}`,

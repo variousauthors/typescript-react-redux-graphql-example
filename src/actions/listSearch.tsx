@@ -1,4 +1,4 @@
-import { ActionType, IUpdateListSearch, ISetLocale, LocaleType } from '../types/index'
+import { ActionType, IUpdateListSearch, ISetLocale, LocaleType, IUserToggleShowBio } from '../types/index'
 
 interface IUpdateListSearchParams {
   userName?: string
@@ -24,7 +24,18 @@ const setLocale = (locale: LocaleType): ISetLocale => {
   }
 }
 
+const userToggleShowBio = (id: number): IUserToggleShowBio => {
+
+  return {
+    type: ActionType.USER_TOGGLE_SHOW_BIO,
+    data: {
+      userId: id
+    }
+  }
+}
+
 export default {
   updateListSearch,
-  setLocale
+  setLocale,
+  userToggleShowBio,
 }

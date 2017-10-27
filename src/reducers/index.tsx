@@ -3,6 +3,7 @@ import { combineReducers, ReducersMapObject } from 'redux'
 import { IState, IAction } from '../types/index'
 
 import listSearch from './listSearch'
+import users from './users'
 import locale from './locale'
 
 const rootReducer = (state: IState, action: IAction): IState => {
@@ -14,7 +15,8 @@ export default (vendorReducers: ReducersMapObject) => {
     combineReducers({
       ...vendorReducers,
       listSearch,
-      locale
+      locale,
+      users,
     }),
     rootReducer
   )

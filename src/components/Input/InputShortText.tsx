@@ -11,7 +11,7 @@ export interface IInputShortText extends React.InputHTMLAttributes<HTMLInputElem
 export class InputShortText extends React.PureComponent<IInputShortText> {
 
   render () {
-    const className = `edvisor_form-control ${this.props.className}`
+    const className = `form-control ${this.props.className}`
 
     return (
       <div>
