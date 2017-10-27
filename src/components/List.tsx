@@ -1,28 +1,24 @@
-interface IListItemProps {
-  name: string
-}
+import * as React from 'react'
+import { IListItemProps, ListItem } from './ListItem'
 
-interface IListProps {
+export interface IListProps {
   name: string
   list: IListItemProps[]
-  isLoading: boolean
-  error: string
-}
 
-class ListItem extends React.PureComponent<IListItemProps> {
-  render () {
-    return this.props.name
+  queryStatus: {
+    isLoading: boolean
+    error: string
   }
 }
 
-class List extends React.PureComponent<IListProps> {
+export class List extends React.PureComponent<IListProps> {
   render () {
     const list = this.props.list.map((item, index) => {
       return <ListItem key={index} {...item} />
     })
 
     return (
-      <div className={this.props.isLoading ? 'loading' : ''}>
+      <div className={this.props.queryStatus.isLoading ? 'loading' : ''}>
         <h1>{this.props.name}</h1>
         {list}
       </div>
