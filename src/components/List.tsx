@@ -19,7 +19,7 @@ export class List extends React.PureComponent<IListProps> {
 
     return (
       <div className={this.props.queryStatus.isLoading ? 'loading' : ''}>
-        <h1>{this.props.name}</h1>
+        <h1>Users (search: "{this.props.name}")</h1>
         {list}
       </div>
     )

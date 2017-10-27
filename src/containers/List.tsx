@@ -6,29 +6,34 @@ import { IState } from '../types/index'
 import { List as Base, IListProps as IBaseProps } from '../components/List'
 import { mem } from '../helpers/PurityHelpers'
 
-const QUERY = gql`{
-  search(first:10, query:"bob", type:USER) {
-    nodes {
-      ... on User {
-        name
+const QUERY = gql`
+  query search($count: Int!, $userName: String!) {
+    search(first: $count, query: $userName, type:USER) {
+      nodes {
+        ... on User {
+          id
+          name
+        }
       }
     }
   }
-}
 `
 
 interface IVariables {
   variables?: {
-    name: string
+    count: number
+    userName: string
   }
 }
 
 interface IResponse {
-  allUsers: IResponseItem[]
+  search: {
+    nodes: IResponseItem[]
+  }
 }
 
 interface IResponseItem {
-  userId: number
+  id: number
   name: string
 }
 
@@ -36,7 +41,8 @@ interface IPropsFromParent { // from parent component
 }
 
 interface IPropsFromState { // from state
-  name: string
+  userName: string
+  count: number
 }
 
 interface IPropsFromDispatch { // from dispatch
@@ -45,7 +51,8 @@ interface IPropsFromDispatch { // from dispatch
 export const mapPropsToVariables = (props: IPropsFromParent & IPropsFromState & IPropsFromDispatch): IVariables => {
 
   const variables = {
-    name: props.name,
+    userName: props.userName,
+    count: props.count
   }
 
   return {
@@ -60,15 +67,16 @@ export const mapGraphQLToProps = (props: OptionProps<IPropsFromParent & IPropsFr
       isLoading: props.data.loading,
       error: props.data.error ? props.data.error.message : '',
     }),
-    name: props.ownProps.name,
-    list: props.data.allUsers ? props.data.allUsers : mem([])
+    name: props.ownProps.userName,
+    list: props.data.search ? props.data.search.nodes : mem([])
   }
 }
 
 export const mapStateToProps = (state: IState, props: IPropsFromParent): IPropsFromParent & IPropsFromState => {
 
   return {
-    name: state.name
+    userName: 'Bob',
+    count: 10
   }
 }
 

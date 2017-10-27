@@ -6,6 +6,8 @@ export interface IListItemProps {
 
 export class ListItem extends React.PureComponent<IListItemProps> {
   render () {
-    return this.props.name
+    return (
+      <div>{this.props.name}</div>
+    )
   }
 }
