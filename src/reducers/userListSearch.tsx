@@ -1,7 +1,7 @@
 import { IUserListSearchState, IUpdateListSearch, ActionType } from '../types/index'
 
 const initialUserListSearch: IUserListSearchState = {
-  userName: 'Bob',
+  login: 'Bob',
   count: 10
 }
 

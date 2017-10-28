@@ -7,7 +7,7 @@ export interface ILocale {
 
 export interface IUserListItem {
   id: number
-  name: string
+  login: string
 }
 
 export const enum LocaleType {

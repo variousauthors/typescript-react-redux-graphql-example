@@ -3,16 +3,16 @@ import { connect, Dispatch } from 'react-redux'
 
 import ActionCreator from '../actions/index'
 import { IState } from '../types/index'
-import { List as Base, IListProps as IBaseProps } from '../components/UserList'
+import { UserList as Base, IUserListProps as IBaseProps } from '../components/UserList'
 import { mem } from '../helpers/PurityHelpers'
 
 const QUERY = gql`
-  query search($count: Int!, $userName: String!) {
-    search(first: $count, query: $userName, type:USER) {
+  query search($count: Int!, $login: String!) {
+    search(first: $count, query: $login, type:USER) {
       nodes {
         ... on User {
           id
-          name
+          login
         }
       }
     }
@@ -22,7 +22,7 @@ const QUERY = gql`
 interface IVariables {
   variables?: {
     count: number
-    userName: string
+    login: string
   }
 }
 
@@ -34,25 +34,25 @@ interface IResponse {
 
 interface IResponseItem {
   id: number
-  name: string
+  login: string
 }
 
 interface IPropsFromParent { // from parent component
 }
 
 interface IPropsFromState { // from state
-  userName: string
+  login: string
   count: number
 }
 
 interface IPropsFromDispatch { // from dispatch
-  userNameChange: (userName: string) => void
+  loginSearchChange: (login: string) => void
 }
 
 export const mapPropsToVariables = (props: IPropsFromParent & IPropsFromState & IPropsFromDispatch): IVariables => {
 
   const variables = {
-    userName: props.userName,
+    login: props.login,
     count: props.count
   }
 
@@ -69,24 +69,24 @@ export const mapGraphQLToProps = (props: OptionProps<IPropsFromParent & IPropsFr
       isLoading: data.loading,
       error: data.error ? data.error.message : '',
     }),
-    userName: props.ownProps.userName,
+    login: props.ownProps.login,
     list: data.search ? data.search.nodes : mem([]),
-    userNameChange: props.ownProps.userNameChange
+    loginSearchChange: props.ownProps.loginSearchChange
   }
 }
 
 export const mapStateToProps = (state: IState, props: IPropsFromParent): IPropsFromParent & IPropsFromState => {
 
   return {
-    userName: state.userListSearch.userName,
+    login: state.userListSearch.login,
     count: state.userListSearch.count
   }
 }
 
 export const mapDispatchToProps = (dispatch: Dispatch<void>, props: IPropsFromParent): IPropsFromDispatch => {
   return {
-    userNameChange: (userName: string) => {
-      dispatch(ActionCreator.updateListSearch({ userName }))
+    loginSearchChange: (login: string) => {
+      dispatch(ActionCreator.updateListSearch({ login }))
     }
   }
 }

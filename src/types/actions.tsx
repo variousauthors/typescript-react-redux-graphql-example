@@ -15,7 +15,7 @@ export interface IAction {
 export interface IUpdateListSearch extends IAction {
   type: ActionType.UPDATE_LIST_SEARCH
   data: { 
-    userName?: string
+    login?: string
     count?: number
   }
 }

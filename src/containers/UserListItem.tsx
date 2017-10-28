@@ -2,7 +2,7 @@ import { connect, Dispatch } from 'react-redux'
 
 import ActionCreator from '../actions/index'
 import { IState, IUserListItem } from '../types/index'
-import { ListItem as Base } from '../components/UserListItem'
+import { UserListItem as Base } from '../components/UserListItem'
 
 interface IPropsFromParent { // from parent component
   item: IUserListItem

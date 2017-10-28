@@ -1,7 +1,7 @@
 import { ActionType, IUpdateListSearch, IUserToggleShowBio } from '../types/index'
 
 interface IUpdateListSearchParams {
-  userName?: string
+  login?: string
   count?: number
 }
 

@@ -5,8 +5,8 @@ import { InputFormGroup } from './Input/InputFormGroup'
 import { InputForm } from './Input/InputForm'
 import { IUserListItem } from '../types/index'
 
-export interface IListProps {
-  userName: string
+export interface IUserListProps {
+  login: string
   list: IUserListItem[]
 
   queryStatus: {
@@ -14,18 +14,18 @@ export interface IListProps {
     error: string
   }
 
-  userNameChange: (userName: string) => void
+  loginSearchChange: (userName: string) => void
 }
 
-export class List extends React.PureComponent<IListProps> {
-  constructor (props: IListProps) {
+export class UserList extends React.PureComponent<IUserListProps> {
+  constructor (props: IUserListProps) {
     super(props)
 
     this.handleNameChange = this.handleNameChange.bind(this)
   }
 
   handleNameChange (e: React.ChangeEvent<HTMLInputElement>) {
-    this.props.userNameChange(e.target.value)
+    this.props.loginSearchChange(e.target.value)
   }
 
   render () {
@@ -35,10 +35,10 @@ export class List extends React.PureComponent<IListProps> {
 
     return (
       <div className={this.props.queryStatus.isLoading ? 'loading' : ''}>
-        <h1>Users (search: "{this.props.userName}")</h1>
+        <h1>Users (search: "{this.props.login}")</h1>
         <InputForm>
           <InputFormGroup>
-            <InputShortText label='Search' id='userSearch' value={this.props.userName} onChange={this.handleNameChange} />
+            <InputShortText label='Search' id='userSearch' value={this.props.login} onChange={this.handleNameChange} />
           </InputFormGroup>
         </InputForm>
         {list}

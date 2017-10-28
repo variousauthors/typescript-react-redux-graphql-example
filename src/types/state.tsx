@@ -1,7 +1,7 @@
 import { LocaleType } from './index'
 
 export interface IUserListSearchState {
-  userName: string
+  login: string
   count: number
 }
 
