@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 export interface IUserBioProps {
-  bio: string | undefined
-  location: string | undefined
+  bio?: string
+  location?: string
   name: string
   isHireable: boolean
   queryStatus: {

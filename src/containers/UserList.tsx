@@ -49,6 +49,30 @@ interface IPropsFromDispatch { // from dispatch
   loginSearchChange: (login: string) => void
 }
 
+/** mapStateToProps
+ * In a container with BOTH connect AND graphql, mapStateToProps
+ * is doing double duty. It is getting the state that the component needs,
+ * but it is also getting the state that graphql will need. 
+ * 
+ * for example, if you look at `IBaseProps` you will see that * it does not include `count: number`
+ * but `IVariables` does need `count: number`
+ */
+export const mapStateToProps = (state: IState, props: IPropsFromParent): IPropsFromState => {
+
+  return {
+    login: state.userListSearch.login,
+    count: state.userListSearch.count
+  }
+}
+
+export const mapDispatchToProps = (dispatch: Dispatch<void>, props: IPropsFromParent): IPropsFromDispatch => {
+  return {
+    loginSearchChange: (login: string) => {
+      dispatch(ActionCreator.updateListSearch({ login }))
+    }
+  }
+}
+
 export const mapPropsToVariables = (props: IPropsFromParent & IPropsFromState & IPropsFromDispatch): IVariables => {
 
   const variables = {
@@ -75,21 +99,6 @@ export const mapGraphQLToProps = (props: OptionProps<IPropsFromParent & IPropsFr
   }
 }
 
-export const mapStateToProps = (state: IState, props: IPropsFromParent): IPropsFromParent & IPropsFromState => {
-
-  return {
-    login: state.userListSearch.login,
-    count: state.userListSearch.count
-  }
-}
-
-export const mapDispatchToProps = (dispatch: Dispatch<void>, props: IPropsFromParent): IPropsFromDispatch => {
-  return {
-    loginSearchChange: (login: string) => {
-      dispatch(ActionCreator.updateListSearch({ login }))
-    }
-  }
-}
 
 const BaseWithGraphQL = graphql<IResponse, IPropsFromParent & IPropsFromState & IPropsFromDispatch, IBaseProps>(QUERY, {
   options: mapPropsToVariables,

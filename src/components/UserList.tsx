@@ -21,6 +21,9 @@ export class UserList extends React.PureComponent<IUserListProps> {
   constructor (props: IUserListProps) {
     super(props)
 
+    /** all event handlers must be bound in the constructor
+     *  using anonymous arrow functions in render is banned
+     */
     this.handleNameChange = this.handleNameChange.bind(this)
   }
 
@@ -38,7 +41,12 @@ export class UserList extends React.PureComponent<IUserListProps> {
         <h1>Users (search: "{this.props.login}")</h1>
         <InputForm>
           <InputFormGroup>
-            <InputShortText label='Search' id='userSearch' value={this.props.login} onChange={this.handleNameChange} />
+            <InputShortText
+              label='Search'
+              id='userSearch'
+              value={this.props.login}
+              onChange={this.handleNameChange}
+            />
           </InputFormGroup>
         </InputForm>
         {list}

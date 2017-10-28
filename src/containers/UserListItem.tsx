@@ -20,13 +20,21 @@ export const mapStateToProps = (state: IState, props: IPropsFromParent): IPropsF
   const user = state.users[props.item.id]
 
   return {
-    showUserBio: user ? user.showBio : false
+    showUserBio: user && user.showBio
   }
 }
 
 export const mapDispatchToProps = (dispatch: Dispatch<void>, props: IPropsFromParent): IPropsFromDispatch => {
   return {
     toggleShowBio: (id: number) => {
+      /**          ~~~~
+       * #memoization, #referential-purity
+       * we have the id in mapStateToProps
+       * so we _could_ compose a toggleShowBio :: () => void in mergeProps
+       * but then it will almost certainly break referential purity
+       * so instead we are passing the id out into the wrapped Component,
+       * and letting the Component pass it back to us here
+       */
       dispatch(ActionCreator.userToggleShowBio(id))
     }
   }

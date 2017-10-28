@@ -5,19 +5,22 @@ import { IUserListItem } from '../types/index'
 export interface IUserListItemProps {
   item: IUserListItem
   showUserBio: boolean
-  toggleShowBio: (id: number) => void
+  toggleShowBio: () => void
 }
 
 export class UserListItem extends React.PureComponent<IUserListItemProps> {
   constructor (props: IUserListItemProps) {
     super(props)
 
+    /** all event handlers must be bound in the constructor
+     *  using anonymous arrow functions in render is banned
+     */
     this.handleUserNameClick = this.handleUserNameClick.bind(this)
   }
 
   handleUserNameClick (e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault()
-    this.props.toggleShowBio(this.props.item.id)
+    this.props.toggleShowBio()
   }
 
   render () {

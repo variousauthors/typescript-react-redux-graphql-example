@@ -1,7 +1,5 @@
 import { graphql, gql, OptionProps } from 'react-apollo'
-import { connect, Dispatch } from 'react-redux'
 
-import { IState } from '../types/index'
 import { UserBio as Base, IUserBioProps as IBaseProps } from '../components/UserBio'
 import { mem } from '../helpers/PurityHelpers'
 
@@ -30,6 +28,14 @@ interface IResponse {
 }
 
 interface IResponseItem {
+  /**    ~~~~~~~~~~~~~~~ 
+   * #typesafety
+   * Unfortunately, we have no guarantee that the response from the server
+   * will perfectly match this interface. If the response changes, or if
+   * we update the QUERY above, then the actual response may not conform to
+   * this interface. So be vigilant and try to update IResponseItem whenever
+   * it goes out of sync!
+   */
   id: number
   login: string
   bio?: string
@@ -39,17 +45,16 @@ interface IResponseItem {
   name: string
 }
 
+/** IPropsFromParent specifies the Wrapped Component's API 
+ * We will use the connect(UserBio) component like,
+ * 
+ * <UserBio login={string} />
+ */
 interface IPropsFromParent { // from parent component
   login: string
 }
 
-interface IPropsFromState { // from state
-}
-
-interface IPropsFromDispatch { // from dispatch
-}
-
-export const mapPropsToVariables = (props: IPropsFromParent & IPropsFromState & IPropsFromDispatch): IVariables => {
+export const mapPropsToVariables = (props: IPropsFromParent): IVariables => {
 
   const variables = {
     login: props.login
@@ -60,14 +65,28 @@ export const mapPropsToVariables = (props: IPropsFromParent & IPropsFromState & 
   }
 }
 
-export const mapGraphQLToProps = (props: OptionProps<IPropsFromParent & IPropsFromState & IPropsFromDispatch, IResponse>): IBaseProps => {
+export const mapGraphQLToProps = (props: OptionProps<IPropsFromParent, IResponse>): IBaseProps => {
   const data = props!.data!
+  /** bang.        ~~~   ~~~
+   * Typescript's !. operator suggests that "this value never be null".
+   */
 
   return {
     queryStatus: mem({
+    /** mem!    ~~~~~
+     * #memoization, #referencial-purity
+     * any time we return a function, object literal, or array literal from an HOC
+     * we must memoize it. If we don't, we lose referential purity. A React Component
+     * that receives [], for example, will _always_ rerender.
+     */
       isLoading: data.loading,
       error: data.error ? data.error.message : '',
     }),
+
+    /** notice that the types of some of these fields is (string | undefined) 
+     * if a field is (string | undefined), should we check here and provide
+     * a default value... or should the component handle that?
+     */
     bio: data.user && data.user.bio,
     name: data.user && data.user.name,
     isHireable: data.user && data.user.isHireable,
@@ -75,23 +94,7 @@ export const mapGraphQLToProps = (props: OptionProps<IPropsFromParent & IPropsFr
   }
 }
 
-export const mapStateToProps = (state: IState, props: IPropsFromParent): IPropsFromState => {
-
-  return {
-  }
-}
-
-export const mapDispatchToProps = (dispatch: Dispatch<void>, props: IPropsFromParent): IPropsFromDispatch => {
-  return {
-  }
-}
-
-const BaseWithGraphQL = graphql<IResponse, IPropsFromParent & IPropsFromState & IPropsFromDispatch, IBaseProps>(QUERY, {
+export default graphql<IResponse, IPropsFromParent, IBaseProps>(QUERY, {
   options: mapPropsToVariables,
   props: mapGraphQLToProps
 })(Base)
-
-export default connect<IPropsFromState, IPropsFromDispatch, IPropsFromParent>(
-  mapStateToProps,
-  mapDispatchToProps,
-)(BaseWithGraphQL)
