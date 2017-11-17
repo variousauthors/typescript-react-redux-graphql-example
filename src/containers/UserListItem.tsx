@@ -2,7 +2,7 @@ import { connect, Dispatch } from 'react-redux'
 
 import ActionCreator from '../actions/index'
 import { IState, IUserListItem } from '../types/index'
-import { UserListItem as Base } from '../components/UserListItem'
+import { UserListItem as Base, IUserListItemProps as IBaseProps } from '../components/UserListItem'
 
 interface IPropsFromParent { // from parent component
   item: IUserListItem
@@ -40,7 +40,16 @@ export const mapDispatchToProps = (dispatch: Dispatch<void>, props: IPropsFromPa
   }
 }
 
-export default connect<IPropsFromState, IPropsFromDispatch, IPropsFromParent>(
+export const mergeProps = (propsFromState: IPropsFromState, propsFromDispatch: IPropsFromDispatch, propsFromParent: IPropsFromParent): IBaseProps => {
+  return {
+    item: propsFromParent.item,
+    toggleShowBio: propsFromDispatch.toggleShowBio,
+    showUserBio: propsFromState.showUserBio,
+  }
+}
+
+export default connect<IPropsFromState, IPropsFromDispatch, IPropsFromParent, IBaseProps>(
   mapStateToProps,
   mapDispatchToProps,
+  mergeProps,
 )(Base)

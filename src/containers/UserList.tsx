@@ -99,7 +99,6 @@ export const mapGraphQLToProps = (props: OptionProps<IPropsFromParent & IPropsFr
   }
 }
 
-
 const BaseWithGraphQL = graphql<IResponse, IPropsFromParent & IPropsFromState & IPropsFromDispatch, IBaseProps>(QUERY, {
   options: mapPropsToVariables,
   props: mapGraphQLToProps

@@ -5,7 +5,7 @@ import { IUserListItem } from '../types/index'
 export interface IUserListItemProps {
   item: IUserListItem
   showUserBio: boolean
-  toggleShowBio: () => void
+  toggleShowBio: (id: number) => void
 }
 
 export class UserListItem extends React.PureComponent<IUserListItemProps> {
@@ -20,7 +20,7 @@ export class UserListItem extends React.PureComponent<IUserListItemProps> {
 
   handleUserNameClick (e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault()
-    this.props.toggleShowBio()
+    this.props.toggleShowBio(this.props.item.id)
   }
 
   render () {
